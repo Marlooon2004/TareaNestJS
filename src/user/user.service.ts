@@ -15,6 +15,7 @@ export class UserService {
     const userV = this.users.find((user) => user.id === id);
     if (userV) {
       Object.assign(userV, item);
+      return { message: 'Usuario actualizado exitosamente' };
     } else {
       throw new NotFoundException('Usuario no encontrado');
     }
@@ -22,7 +23,8 @@ export class UserService {
   eliminarUser(id: number) {
     const userV = this.users.find((user) => user.id === id);
     if (userV) {
-      this.users = this.users.filter((user) => user.id === id);
+      this.users = this.users.filter((user) => user.id !== id);
+      return { message: 'Usuario eliminado exitosamente' };
     } else {
       throw new NotFoundException('Usuario no encontrado');
     }
@@ -31,6 +33,11 @@ export class UserService {
     return this.users;
   }
   registrarUser(item: CreateUserDto) {
+    const userV = this.users.find((user) => user.id === item.id);
+    if (userV) {
+      return { message: 'El usuario ya existe con ese ID' };
+    }
     this.users.push(item);
+    return { message: 'Usuario agregado exitosamente' };
   }
 }

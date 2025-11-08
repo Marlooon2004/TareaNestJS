@@ -21,19 +21,19 @@ export class UserController {
 
   @Put(':id')
   updUser(@Body() item: CreateUserDto, @Param('id') id: string) {
-    this.userService.actualizarUser(parseInt(id), item);
+    return this.userService.actualizarUser(parseInt(id), item);
   }
 
   @Delete(':id')
   delUser(@Param('id') id: string) {
-    this.userService.eliminarUser(parseInt(id));
+    return this.userService.eliminarUser(parseInt(id));
   }
-  @Get('all')
+  @Get()
   getUsers() {
-    this.userService.getAllUsers();
+    return this.userService.getAllUsers();
   }
   @Post()
   createUser(@Body() item: CreateUserDto) {
-    this.userService.registrarUser(item);
+    return this.userService.registrarUser(item);
   }
 }
